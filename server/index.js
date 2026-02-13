@@ -8,13 +8,11 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 app.use(express.json());
-app.use(
-  cors({
-    origin: ["http://localhost:5173"],
-    methods: ["GET", "POST"],
-    credentials: true,
-  }),
-);
+const corsOptions = {
+  origin: '*',
+};
+
+app.use(cors(corsOptions));
 app.use(cookieParser());
 
 const verifyUser = (req, res, next) => {
@@ -41,6 +39,8 @@ app.get("/dashboard", verifyUser, (req, res) => {
 });
 
 app.post("/register", (req, res) => {
+    console.log("from FE");
+    
   const { username, email, password } = req.body;
   bcrypt
     .hash(password, 10)
@@ -75,7 +75,7 @@ app.post("/login", (req, res) => {
   });
 });
 
-app.listen(5033, console.log("3001"));
+app.listen(5033, console.log("5033"));
 mongoose
   .connect(
     "mongodb+srv://ziyavulhaq:cMUIrusu8BeNbY7C@backenddb.o97g24k.mongodb.net/Node-API?appName=Authentication",

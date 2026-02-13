@@ -7,18 +7,18 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Signup = () => {
-  const [name, setName] = useState();
+  const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
 
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5033/register", { name, email, password })
+      .post("http://localhost:5033/register", { username, email, password })
       .then((res) => {
+        console.log(res, "res");
+        
         navigate("/login");
       })
       .catch((err) => console.log(err));
@@ -34,7 +34,7 @@ const Signup = () => {
             <input
               type="text"
               placeholder="UserName"
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
             <FaUserAlt className="icon" />
